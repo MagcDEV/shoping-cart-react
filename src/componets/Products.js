@@ -7,7 +7,7 @@ export const Products = (props) => {
         {props.productsList.products.map((product) => (
           <li className='md:w-1/4 w-full' key={product._id}>
             <div className=''>
-              <a href='/'>
+              <a href={'#' + product._id}>
                 <img className=' h-80 mt-4' src={product.image} alt='product' />
                 <p>{product.title}</p>
               </a>
