@@ -15,7 +15,10 @@ export const Products = (props) => {
                 <div className='text-center  mr-8 text-2xl '>
                   {'$' + product.price}
                 </div>
-                <button className='text-center bg-yellow-500 hover:bg-yellow-700 rounded font-bold p-1'>
+                <button
+                  onClick={() => props.addToCart(product)}
+                  className='text-center bg-yellow-500 hover:bg-yellow-700 rounded font-bold p-1'
+                >
                   Add to Cart
                 </button>
               </div>

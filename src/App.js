@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Cart } from './componets/Cart';
 import Filter from './componets/Filter';
 import { Products } from './componets/Products';
 import data from './data.json';
@@ -6,9 +7,28 @@ import data from './data.json';
 const App = () => {
   const [productsList, setProducts] = useState({
     products: data.products,
+    cartItems: [],
     size: '',
     sort: '',
   });
+
+  const addToCart = (product) => {
+    const cartItems = productsList.cartItems.slice();
+    let alreadyInCart = false;
+    cartItems.forEach((item) => {
+      if (item._id === product._id) {
+        item.count++;
+        alreadyInCart = true;
+      }
+    });
+    if (!alreadyInCart) {
+      cartItems.push({ ...product, count: 1 });
+    }
+    setProducts({
+      ...productsList,
+      cartItems,
+    });
+  };
 
   const filterProducts = (event) => {
     if (!event.target.value) {
@@ -47,7 +67,7 @@ const App = () => {
   return (
     <div className='grid grid-rows-layout grid-cols-1 text-lg'>
       <header className='bg-gray-600 h-20 text-white flex items-center p-2'>
-        <a className='hover:text-yellow-700' href='/'>
+        <a className='hover:text-yellow-700 text-3xl' href='/'>
           React Shopping Cart
         </a>
       </header>
@@ -61,9 +81,11 @@ const App = () => {
               filterProducts={filterProducts}
               sortProducts={sortProducts}
             />
-            <Products productsList={productsList} />
+            <Products productsList={productsList} addToCart={addToCart} />
           </div>
-          <div className='w-1/4'>Cart Items</div>
+          <div className='w-1/4'>
+            <Cart cartItems={productsList} />
+          </div>
         </div>
       </main>
       <footer className='bg-gray-600 h-20 text-white flex justify-center items-center'>
