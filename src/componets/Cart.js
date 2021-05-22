@@ -2,6 +2,7 @@ import React from 'react';
 
 export const Cart = (props) => {
   const { cartItems } = props.cartItems;
+  console.log(props.cartItems.length);
   return (
     <div className='flex flex-wrap p-4 m-4'>
       {cartItems.length === 0 ? (
@@ -33,6 +34,9 @@ export const Cart = (props) => {
             </li>
           ))}
         </ul>
+        <div> 
+          TOTAL: $ {cartItems.reduce((total, currentPrice) => total + (currentPrice.price * currentPrice.count), 0)}
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export const Products = (props) => {
     <div>
       <ul className='flex flex-wrap justify-center items-center m-0 p-0 mb-1'>
         {props.productsList.products.map((product) => (
-          <li className='md:w-1/4 w-full' key={product._id}>
+          <li className='md:w-1/3 w-full' key={product._id}>
             <div className=''>
               <a href={'#' + product._id}>
                 <img className=' h-80 mt-4' src={product.image} alt='product' />
