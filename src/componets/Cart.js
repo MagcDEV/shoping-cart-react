@@ -36,6 +36,7 @@ export const Cart = (props) => {
         </ul>
         <div> 
           TOTAL: $ {cartItems.reduce((total, currentPrice) => total + (currentPrice.price * currentPrice.count), 0)}
+          <button className="ml-8 text-center bg-yellow-500 hover:bg-yellow-700 p-2 w-32">Proceed</button>
         </div>
       </div>
     </div>
