@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export const Cart = (props) => {
+  const [showCheckout, setShowCheckout] = useState({
+    name: '',
+    email: '',
+    address: '',
+    showCheck: false,
+  });
   const { cartItems } = props.cartItems;
-  console.log(props.cartItems.length);
+
+  const handleInput = (e) => {
+    e.preventDefault();
+    setShowCheckout({ ...showCheckout, [e.target.name]: e.target.value });
+  };
+
+  const createOrder = (e) => {
+    e.preventDefault();
+    const order = {
+      name: showCheckout.name,
+      email: showCheckout.email,
+      address: showCheckout.address,
+      cartItems,
+    };
+    props.createOrder(order);
+  };
   return (
     <div className='flex flex-wrap p-4 m-4'>
       {cartItems.length === 0 ? (
@@ -34,11 +55,70 @@ export const Cart = (props) => {
             </li>
           ))}
         </ul>
-        <div> 
-          TOTAL: $ {cartItems.reduce((total, currentPrice) => total + (currentPrice.price * currentPrice.count), 0)}
-          <button className="ml-8 text-center bg-yellow-500 hover:bg-yellow-700 p-2 w-32">Proceed</button>
+        <div>
+          TOTAL: ${' '}
+          {cartItems.reduce(
+            (total, currentPrice) =>
+              total + currentPrice.price * currentPrice.count,
+            0
+          )}
+          <button
+            onClick={() =>
+              setShowCheckout({ ...showCheckout, showCheck: true })
+            }
+            className='ml-8 text-center bg-yellow-500 hover:bg-yellow-700 p-2 w-32'
+          >
+            Proceed
+          </button>
         </div>
       </div>
+      {showCheckout.showCheck && (
+        <div className='w-full mt-4'>
+          <form>
+            <ul className='space-y-2'>
+              <li className='space-x-2'>
+                <label>Email:</label>
+                <input
+                  className='border py-2 px-3 text-grey-darkest'
+                  type='email'
+                  name='email'
+                  required
+                  onChange={handleInput}
+                ></input>
+              </li>
+              <li className='space-x-2'>
+                <label>Name:</label>
+                <input
+                  className='border py-2 px-3 text-grey-darkest'
+                  type='text'
+                  name='name'
+                  required
+                  onChange={handleInput}
+                ></input>
+              </li>
+              <li className='space-x-2'>
+                <label>Address:</label>
+                <input
+                  className='border py-2 px-3 text-grey-darkest'
+                  type='text'
+                  name='address'
+                  required
+                  onChange={handleInput}
+                ></input>
+              </li>
+              <li>
+                <button
+                  onClick={createOrder}
+                  type='submit'
+                  className='ml-8 text-center bg-yellow-500 hover:bg-yellow-700 p-2 w-32'
+                >
+                  Checkout
+                </button>
+              </li>
+            </ul>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

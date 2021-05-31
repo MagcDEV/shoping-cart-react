@@ -3,7 +3,7 @@ import React from 'react';
 export const Products = (props) => {
   return (
     <div>
-      <ul className='flex flex-wrap justify-center items-center m-0 p-0 mb-1'>
+      <ul className='flex flex-wrap justify-center items-center m-0 p-0 mb-1  lg:ml-4'>
         {props.productsList.products.map((product) => (
           <li className='md:w-1/3 w-full' key={product._id}>
             <div className=''>

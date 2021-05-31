@@ -7,24 +7,32 @@ import data from './data.json';
 const App = () => {
   const [productsList, setProducts] = useState({
     products: data.products,
-    cartItems: [],
+    cartItems: localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
+      : [],
     size: '',
     sort: '',
   });
 
+  const createOrder = (order) => {
+    alert('Nedd to save order for ' + order.name);
+  };
+
   const removeFromCart = (product) => {
     let cartItems = productsList.cartItems.slice();
     cartItems.forEach((item) => {
-      if (item._id === product._id & item.count === 1) {
-        cartItems = cartItems.filter((element) => (element._id !== product._id))
+      if ((item._id === product._id) & (item.count === 1)) {
+        cartItems = cartItems.filter((element) => element._id !== product._id);
       } else if (item._id === product._id) {
         item.count--;
       }
     });
     setProducts({
       ...productsList,
-      cartItems})
-  }
+      cartItems,
+    });
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  };
 
   const addToCart = (product) => {
     const cartItems = productsList.cartItems.slice();
@@ -42,11 +50,16 @@ const App = () => {
       ...productsList,
       cartItems,
     });
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
   };
 
   const filterProducts = (event) => {
     if (!event.target.value) {
-      return setProducts({...productsList, size: '' ,products: data.products });
+      return setProducts({
+        ...productsList,
+        size: '',
+        products: data.products,
+      });
     }
     setProducts({
       ...productsList,
@@ -99,7 +112,11 @@ const App = () => {
             <Products productsList={productsList} addToCart={addToCart} />
           </div>
           <div className='w-1/4'>
-            <Cart cartItems={productsList} removeFromCart={removeFromCart} />
+            <Cart
+              cartItems={productsList}
+              createOrder={createOrder}
+              removeFromCart={removeFromCart}
+            />
           </div>
         </div>
       </main>
