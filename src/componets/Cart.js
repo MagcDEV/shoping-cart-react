@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Fade from 'react-reveal/Fade';
 
 export const Cart = (props) => {
   const [showCheckout, setShowCheckout] = useState({
@@ -34,27 +35,29 @@ export const Cart = (props) => {
         </div>
       )}
       <div className='w-full mt-4'>
-        <ul>
-          {cartItems.map((item) => (
-            <li className='flex' key={item._id}>
-              <div className='p-2'>
-                <img className='w-32 h-32' src={item.image} alt='product' />
-              </div>
-              <div className='text-right'>
-                <div>{item.title}</div>
-                <div className=''>
-                  {'$' + item.price} x {item.count}{' '}
-                  <button
-                    className='text-center bg-gray-300 hover:bg-gray-500 rounded p-1'
-                    onClick={() => props.removeFromCart(item)}
-                  >
-                    Remove
-                  </button>
+        <Fade left cascade>
+          <ul>
+            {cartItems.map((item) => (
+              <li className='flex' key={item._id}>
+                <div className='p-2'>
+                  <img className='w-32 h-32' src={item.image} alt='product' />
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+                <div className='text-right'>
+                  <div>{item.title}</div>
+                  <div className=''>
+                    {'$' + item.price} x {item.count}{' '}
+                    <button
+                      className='text-center bg-gray-300 hover:bg-gray-500 rounded p-1'
+                      onClick={() => props.removeFromCart(item)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Fade>
         <div>
           TOTAL: ${' '}
           {cartItems.reduce(
