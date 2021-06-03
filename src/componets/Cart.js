@@ -58,13 +58,15 @@ export const Cart = (props) => {
             ))}
           </ul>
         </Fade>
-        <div>
+        <div className='font-bold'>
           TOTAL: ${' '}
-          {cartItems.reduce(
-            (total, currentPrice) =>
-              total + currentPrice.price * currentPrice.count,
-            0
-          )}
+          {cartItems
+            .reduce(
+              (total, currentPrice) =>
+                total + currentPrice.price * currentPrice.count,
+              0
+            )
+            .toFixed(2)}
           <button
             onClick={() =>
               setShowCheckout({ ...showCheckout, showCheck: true })
@@ -76,51 +78,53 @@ export const Cart = (props) => {
         </div>
       </div>
       {showCheckout.showCheck && (
-        <div className='w-full mt-4'>
-          <form>
-            <ul className='space-y-2'>
-              <li className='space-x-2'>
-                <label>Email:</label>
-                <input
-                  className='border py-2 px-3 text-grey-darkest'
-                  type='email'
-                  name='email'
-                  required
-                  onChange={handleInput}
-                ></input>
-              </li>
-              <li className='space-x-2'>
-                <label>Name:</label>
-                <input
-                  className='border py-2 px-3 text-grey-darkest'
-                  type='text'
-                  name='name'
-                  required
-                  onChange={handleInput}
-                ></input>
-              </li>
-              <li className='space-x-2'>
-                <label>Address:</label>
-                <input
-                  className='border py-2 px-3 text-grey-darkest'
-                  type='text'
-                  name='address'
-                  required
-                  onChange={handleInput}
-                ></input>
-              </li>
-              <li>
-                <button
-                  onClick={createOrder}
-                  type='submit'
-                  className='ml-8 text-center bg-yellow-500 hover:bg-yellow-700 p-2 w-32'
-                >
-                  Checkout
-                </button>
-              </li>
-            </ul>
-          </form>
-        </div>
+        <Fade right cascade>
+          <div className='w-full mt-4'>
+            <form>
+              <ul className='space-y-2'>
+                <li className='space-x-2'>
+                  <label>Email:</label>
+                  <input
+                    className='border py-2 px-3 text-grey-darkest'
+                    type='email'
+                    name='email'
+                    required
+                    onChange={handleInput}
+                  ></input>
+                </li>
+                <li className='space-x-2'>
+                  <label>Name:</label>
+                  <input
+                    className='border py-2 px-3 text-grey-darkest'
+                    type='text'
+                    name='name'
+                    required
+                    onChange={handleInput}
+                  ></input>
+                </li>
+                <li className='space-x-2'>
+                  <label>Address:</label>
+                  <input
+                    className='border py-2 px-3 text-grey-darkest'
+                    type='text'
+                    name='address'
+                    required
+                    onChange={handleInput}
+                  ></input>
+                </li>
+                <li>
+                  <button
+                    onClick={createOrder}
+                    type='submit'
+                    className='ml-8 text-center bg-yellow-500 hover:bg-yellow-700 p-2 w-32'
+                  >
+                    Checkout
+                  </button>
+                </li>
+              </ul>
+            </form>
+          </div>
+        </Fade>
       )}
     </div>
   );

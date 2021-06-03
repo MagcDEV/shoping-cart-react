@@ -1,7 +1,24 @@
 import React from 'react';
+import { useState } from 'react';
 import Fade from 'react-reveal/Fade';
+import Modal from 'react-modal';
+import Zoom from 'react-reveal/Zoom';
 
 export const Products = (props) => {
+  const [modal, setModal] = useState({
+    product: null,
+  });
+
+  const openModal = (product) => {
+    setModal({ product });
+  };
+
+  const closeModal = () => {
+    setModal({ product: null });
+  };
+
+  const { product } = modal;
+
   return (
     <div>
       <Fade bottom cascade>
@@ -9,7 +26,7 @@ export const Products = (props) => {
           {props.productsList.products.map((product) => (
             <li className='md:w-1/3 w-full' key={product._id}>
               <div className=''>
-                <a href={'#' + product._id}>
+                <a href={'#' + product._id} onClick={() => openModal(product)}>
                   <img
                     className=' h-80 mt-4'
                     src={product.image}
@@ -33,6 +50,19 @@ export const Products = (props) => {
           ))}
         </ul>
       </Fade>
+      {product && (
+        <Modal isOpen={true} onRequestClose={closeModal}>
+          <Zoom>
+            <button
+              className='text-center font-bold bg-gray-300 hover:bg-gray-500 rounded p-1 w-8'
+              onClick={closeModal}
+            >
+              X
+            </button>
+            <div>Modal</div>
+          </Zoom>
+        </Modal>
+      )}
     </div>
   );
 };
