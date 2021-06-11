@@ -28,7 +28,7 @@ export const Products = (props) => {
               <div className=''>
                 <a href={'#' + product._id} onClick={() => openModal(product)}>
                   <img
-                    className=' h-80 mt-4'
+                    className=' h-96 mt-4'
                     src={product.image}
                     alt='product'
                   />
@@ -59,7 +59,41 @@ export const Products = (props) => {
             >
               X
             </button>
-            <div>Modal</div>
+            <div id='product-details'>Modal</div>
+            <img className='h-96 mt-4' src={product.image} alt='product' />
+            <div id='product-details-description'>
+              <p>
+                <strong>{product.title}</strong>
+              </p>
+              <p>
+                <strong>{product.description}</strong>
+              </p>
+              <p>
+                Available sizes:{' '}
+                {product.availableSizes.map((x) => (
+                  <span>
+                    {'  '}
+                    <button className='text-center font-bold bg-gray-300 hover:bg-gray-500 rounded p-1 w-8'>
+                      {x}
+                    </button>
+                  </span>
+                ))}
+              </p>
+              <div className='flex  items-center'>
+                <div className='text-center  mr-8 text-2xl '>
+                  {'$' + product.price}
+                </div>
+                <button
+                  onClick={() => {
+                    props.addToCart(product);
+                    closeModal();
+                  }}
+                  className='text-center bg-yellow-500 hover:bg-yellow-700 rounded font-bold p-1'
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
           </Zoom>
         </Modal>
       )}
