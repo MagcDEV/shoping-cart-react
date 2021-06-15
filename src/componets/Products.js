@@ -22,20 +22,20 @@ export const Products = (props) => {
   return (
     <div>
       <Fade bottom cascade>
-        <ul className='flex flex-wrap justify-center items-center m-0 p-0 mb-1  lg:ml-4'>
+        <ul className='flex flex-wrap justify-center items-center m-0 p-0 mb-1 lg:ml-4'>
           {props.productsList.products.map((product) => (
             <li className='md:w-1/3 w-full' key={product._id}>
               <div className=''>
                 <a href={'#' + product._id} onClick={() => openModal(product)}>
                   <img
-                    className=' h-96 mt-4'
+                    className='h-96 mt-4 w-80'
                     src={product.image}
                     alt='product'
                   />
                   <p>{product.title}</p>
                 </a>
                 <div className='flex  items-center'>
-                  <div className='text-center  mr-8 text-2xl '>
+                  <div className='text-center mr-8 text-2xl '>
                     {'$' + product.price}
                   </div>
                   <button
@@ -54,44 +54,45 @@ export const Products = (props) => {
         <Modal isOpen={true} onRequestClose={closeModal}>
           <Zoom>
             <button
-              className='text-center font-bold bg-gray-300 hover:bg-gray-500 rounded p-1 w-8'
+              className='text-center font-bold bg-gray-300 hover:bg-gray-500 rounded p-1 w-8 absolute right-4 top-10'
               onClick={closeModal}
             >
               X
             </button>
-            <div id='product-details'>Modal</div>
-            <img className='h-96 mt-4' src={product.image} alt='product' />
-            <div id='product-details-description'>
-              <p>
-                <strong>{product.title}</strong>
-              </p>
-              <p>
-                <strong>{product.description}</strong>
-              </p>
-              <p>
-                Available sizes:{' '}
-                {product.availableSizes.map((x) => (
-                  <span>
-                    {'  '}
-                    <button className='text-center font-bold bg-gray-300 hover:bg-gray-500 rounded p-1 w-8'>
-                      {x}
-                    </button>
-                  </span>
-                ))}
-              </p>
-              <div className='flex  items-center'>
-                <div className='text-center  mr-8 text-2xl '>
-                  {'$' + product.price}
+            <div className='flex flex-wrap mr-5'>
+              <img className='h-96 mt-8' src={product.image} alt='product' />
+              <div id='product-details-description'>
+                <p>
+                  <strong>{product.title}</strong>
+                </p>
+                <p>
+                  <strong>{product.description}</strong>
+                </p>
+                <p className='mt-4'>
+                  Available sizes:{' '}
+                  {product.availableSizes.map((x) => (
+                    <span>
+                      {'  '}
+                      <button className='text-center font-bold bg-gray-300 hover:bg-gray-500 rounded p-1 w-8'>
+                        {x}
+                      </button>
+                    </span>
+                  ))}
+                </p>
+                <div className='mx-auto flex items-center w-72 justify-between'>
+                  <div className='text-center mr-8 text-2xl '>
+                    {'$' + product.price}
+                  </div>
+                  <button
+                    onClick={() => {
+                      props.addToCart(product);
+                      closeModal();
+                    }}
+                    className=' w-52 text-center bg-yellow-500 hover:bg-yellow-700 rounded font-bold p-1'
+                  >
+                    Add to Cart
+                  </button>
                 </div>
-                <button
-                  onClick={() => {
-                    props.addToCart(product);
-                    closeModal();
-                  }}
-                  className='text-center bg-yellow-500 hover:bg-yellow-700 rounded font-bold p-1'
-                >
-                  Add to Cart
-                </button>
               </div>
             </div>
           </Zoom>
