@@ -58,24 +58,26 @@ export const Cart = (props) => {
             ))}
           </ul>
         </Fade>
-        <div className='font-bold'>
-          TOTAL: ${' '}
-          {cartItems
-            .reduce(
-              (total, currentPrice) =>
-                total + currentPrice.price * currentPrice.count,
-              0
-            )
-            .toFixed(2)}
-          <button
-            onClick={() =>
-              setShowCheckout({ ...showCheckout, showCheck: true })
-            }
-            className='ml-8 text-center bg-yellow-500 hover:bg-yellow-700 p-2 w-32'
-          >
-            Proceed
-          </button>
-        </div>
+        {cartItems.length > 0 && (
+          <div className='font-bold'>
+            TOTAL: ${' '}
+            {cartItems
+              .reduce(
+                (total, currentPrice) =>
+                  total + currentPrice.price * currentPrice.count,
+                0
+              )
+              .toFixed(2)}
+            <button
+              onClick={() =>
+                setShowCheckout({ ...showCheckout, showCheck: true })
+              }
+              className='ml-8 text-center bg-yellow-500 hover:bg-yellow-700 p-2 w-32'
+            >
+              Proceed
+            </button>
+          </div>
+        )}
       </div>
       {showCheckout.showCheck && (
         <Fade right cascade>

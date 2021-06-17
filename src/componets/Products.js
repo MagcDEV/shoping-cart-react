@@ -59,9 +59,9 @@ export const Products = (props) => {
             >
               X
             </button>
-            <div className='flex flex-wrap mr-5'>
+            <div className='flex flex-wrap mr-5 flex-row m-auto w-11/12'>
               <img className='h-96 mt-8' src={product.image} alt='product' />
-              <div id='product-details-description'>
+              <div className='mt-8 ml-4 w-1/2' id='product-details-description'>
                 <p>
                   <strong>{product.title}</strong>
                 </p>
@@ -79,8 +79,8 @@ export const Products = (props) => {
                     </span>
                   ))}
                 </p>
-                <div className='mx-auto flex items-center w-72 justify-between'>
-                  <div className='text-center mr-8 text-2xl '>
+                <div className='mx-auto mt-8 flex items-center w-5/6 justify-between'>
+                  <div className='text-center mr-8 text-2xl'>
                     {'$' + product.price}
                   </div>
                   <button
